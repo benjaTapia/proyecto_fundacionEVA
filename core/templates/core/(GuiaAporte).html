@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agregar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% if  aportador.idAportador > 0%}
+        <h1>User: {{aportador.usuarioAportador}}</h1>
+        <hr>
+        <h1>Nombre: {{aportador.nombreAportador}}</h1>
+        <h1>Correo: {{aportador.correoAportador}}</h1>
+        <hr>
+        <label>Nombre:</label>
+        <input type="text" class="formulario__input" name="nombre" id="nombre" value={{aportador.nombreAportador}} readonly>
+        <hr>
+    {% endif %}
+    
+    {%if form%}
+        <form method="POST" action="" enctype="multipart/form-data" id="formulario">
+            <div class="form-group">
+                {% csrf_token %} {{ form.as_p }}
+            </div>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+            <button class="btn btn-primary" type="reset">Limpiar</button>
+        </form>
+    {%endif%}
+    
+    <a href=" {% url 'poblar_Aportador' %} " class="btn btn-info btn-sm"> Crear Aportador</a>
+
+
+    {% comment %} Inicio Script ID aportador formulario {% endcomment %}
+    <script>
+        $(document).ready(function(){
+            document.getElementById("id_idAportador").value = {{aportador.idAportador}};
+            $('#id_idAportador').attr("disabled", true);
+
+            $( "#formulario" ).submit(function( event ) {
+                $("#id_idAportador").prop( "disabled", false );
+            });   
+        })
+    </script>
+    {% comment %} Fin Script {% endcomment %}
+</body>
+</html>

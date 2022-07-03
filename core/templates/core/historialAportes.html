@@ -1,0 +1,140 @@
+{% extends 'core/baseAn.html' %}
+{% block content %}
+    <div class="conteiner-xl" style="background-color:#c2e9fb;">
+        <div class="container">
+            <div class="card" style="padding: 20px; background-color:#a1c4fd;">
+                {% if action == "his" %}
+                    <h2 style="text-align: center;">Historial de Aportes: {{aportador.first_name}} {{aportador.last_name}}</h2>
+                {% else %}
+                    <h2 style="text-align: center;">Aportes a realizar: {{aportador.first_name}} {{aportador.last_name}}</h2>
+                {% endif %}
+                <br>
+                <form method="POST" action="" enctype="multipart/form-data" id="fechaForm" name="fechaForm" style="background-color:#a1c4fd;">
+                    <div class="row offset-4">
+                        {% csrf_token %}{{form.as_table}}
+                    </div>
+                    <br>
+                    <div class="offset-5">
+                        <button type="submit" class="btn button-main" >Buscar</button>
+                    </div>
+                </form>
+                <div class="container">
+                    <div class="container-xl">
+                        {% if list %}
+                            <div class="table" style="vertical-align: middle; margin: 10px;">
+                            <div class="table-wrapper" style="padding: 40px;">
+                                <table class="table table-hover" id="tbAportes" style="">
+                                <thead>
+                                    <tr>
+                                        <th style="color:black; background-color: #c2e9fb;">ID Aporte</th>
+                                        <th style="color:black; background-color: #c2e9fb;">Nombre</th>
+                                        <th style="color:black; background-color: #c2e9fb;">Rut</th>
+                                        <th style="color:black; background-color: #c2e9fb;">Fecha</th>
+                                        <th style="color:black; background-color: #c2e9fb;">Monto</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <!--  -->
+                                <tbody style="justify-content: center;">
+                                    {% if action == "his" %}
+                                        {% for aporte in list %}
+                                            <tr style="vertical-align: middle">
+                                                <td style="color:black; background-color: #c2e9fb;">{{aporte.idAporte}}</td>
+                                                <td style="color:black; background-color: #c2e9fb;">{{aportador.first_name}} {{aportador.last_name}}</td>
+                                                <td style="color:black; background-color: #c2e9fb;">{{perfil.rut}}</td>
+                                                <td style="color:black; background-color: #c2e9fb;">{{aporte.fechaAporte}}</td>
+                                                <td style="color:black; background-color: #c2e9fb;">${{aporte.montoAporte}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for aporte in list %}
+                                                <tr style="vertical-align: middle">
+                                                    
+                                                    <td style="color:black; background-color: #c2e9fb;"><a href="{% url 'editarAportes' id aporte.idAporte %}">{{aporte.idAporte}}</a></td>
+                                                    <td style="color:black; background-color: #c2e9fb;"><a href="{% url 'editarAportes' id aporte.idAporte %}">{{aportador.first_name}} {{aportador.last_name}}</a></td>
+                                                    <td style="color:black; background-color: #c2e9fb;"><a href="{% url 'editarAportes' id aporte.idAporte %}">{{perfil.rut}}</a></td>
+                                                    <td style="color:black; background-color: #c2e9fb;"><a href="{% url 'editarAportes' id aporte.idAporte %}">{{aporte.fechaAporte}}</a></td>
+                                                    <td style="color:black; background-color: #c2e9fb;"><a href="{% url 'editarAportes' id aporte.idAporte %}">${{aporte.montoAporte}}</a></td>
+                                                    
+                                                </tr>
+                                            
+                                        {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        {% else %} 
+                            <div id="form_message" class="alert alert-warning" role="alert">No se han encontrado aportes realizados por usted</div>
+                        {% endif %}
+                        {% if action == "his" %}
+                            <a href=" {% url 'historialAportes' aportador.id 'his' %}" class="btn button-main offset-5"> Reiniciar</a>
+                        {% else %}
+                            <a href=" {% url 'historialAportes' aportador.id 'fut' %}" class="btn button-main offset-5"> Reiniciar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div></div>
+    </div>
+    {% if action == 'his' %}
+        <script>
+            //Si la accion (Entregada por views y cargada al presionar historial de aportes), es igual a "his",
+            //Valida que las fechas ingresadas sean hacia el pasado
+            $(document).ready(function(){
+                document.getElementById('id_fechaInicio').type = 'date';
+                document.getElementById('id_fechaFin').type = 'date';
+                document.getElementById("id_fechaInicio").className = "col-lg-4";
+                document.getElementById("id_fechaFin").className = "col-lg-4";
+
+                $("#id_fechaInicio").change(function(){
+                    var hoy= new Date();
+                    var fecha=$('#id_fechaInicio').val();
+                    var fechaFormulario=Date.parse(fecha);			
+                    if (hoy <= fechaFormulario) {
+                        document.getElementById('id_fechaInicio').value = '';
+                    }
+                });
+
+                $("#id_fechaFin").change(function(){
+                    var hoy= new Date();
+                    var fecha=$('#id_fechaFin').val();
+                    var fechaFormulario=Date.parse(fecha);			
+                    if (hoy <= fechaFormulario) {
+                        document.getElementById('id_fechaFin').value = '';
+                    }
+                });
+            });	
+        </script>
+    {% elif action == 'fut'%}
+        <script>
+            //Si la accion (Entregada por views y cargada al presionar aportes a realizar), es igual a "fut",
+            //Valida que las fechas ingresadas sean hacia el futuro
+            $(document).ready(function(){
+                document.getElementById('id_fechaInicio').type = 'date';
+                document.getElementById('id_fechaFin').type = 'date';
+                document.getElementById("id_fechaInicio").className = "col-lg-5";
+                document.getElementById("id_fechaFin").className = "col-lg-5";
+
+                $("#id_fechaInicio").change(function(){
+                    var hoy= new Date();
+                    var fecha=$('#id_fechaInicio').val();
+                    var fechaFormulario=Date.parse(fecha);			
+                    if (hoy >= fechaFormulario) {
+                        document.getElementById('id_fechaInicio').value = '';
+                    }
+                });
+
+                $("#id_fechaFin").change(function(){
+                    var hoy= new Date();
+                    var fecha=$('#id_fechaFin').val();
+                    var fechaFormulario=Date.parse(fecha);			
+                    if (hoy >= fechaFormulario) {
+                        document.getElementById('id_fechaFin').value = '';
+                    }
+                });
+            });	
+        </script>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,108 @@
+{% extends 'core/baseAn.html' %}
+{% load static %}
+{% block content %}
+	<div class="container-fluid" style="background-color:#c2e9fb;">
+			<div style="text-align: center;">
+				<h1>Editar un aporte</h1>
+			</div>
+			{% if mesg %}
+				<div id="form_message" class="alert alert-warning" role="alert">{{ mesg }}</div>
+			{% endif %}
+			<div class="container">
+				<div class="row col-lg-12">
+					<div class="" id="grupo__nombre" class="offset-3">
+						<label for="nombre" class="formulario__label col-lg-12 offset-3">Nombre</label>
+						<div class="">
+							<input type="text" class="formulario__input2 col-lg-6 offset-3" name="nombre" id="nombre"
+								value={{aportador.first_name}} readonly>
+						</div>
+					</div>
+
+					<!-- Grupo: Apellido -->
+					<div class="" id="grupo__apellido" class="offset-3">
+						<label for="apellido" class="formulario__label2 col-lg-12 offset-3">Apellido</label>
+						<div class="formulario__grupo2-input">
+							<input type="text" class="formulario__input2 col-lg-6 offset-3" name="apellido" id="apellido"
+								value={{aportador.last_name}} readonly>
+						</div>
+					</div>
+				<div>
+
+				<!-- Grupo: Correo Electronico -->
+				<div class="formulario__grupoc col-lg-12 offset-3" id="grupo__correo">
+					<label for="correo" class="formulario__label">Correo Electrónico</label>
+					<div class="formulario__grupoc-input">
+						<input type="email" class="col-lg-6 formulario__input" name="correo" id="correo"
+							placeholder="correo@correo.com" value="{{aportador.email}}" readonly>
+					</div>
+				</div>
+			</div>
+			<br>
+			<br><br><br>
+			<h2 class="offset-2">Datos del aporte:</h2>
+				<!-- Grupo: Monto a transferir -->
+			{% if form%}
+				<form method="POST" action="" enctype="multipart/form-data" id="formulario">
+					<div class="form-group" style="text-align:center;">
+						{% csrf_token %}{{form.as_p}}
+						<br>
+						<div>
+							<p>Fecha de su aporte: {{aporte.fechaAporte}}</p>
+						</div>
+						<div class="container">
+							<div class="row">
+								<!--- btn enviar -->
+									<button type="submit" class="btn button-main col-lg-1 offset-4">Enviar</button>
+								</div>
+						</div>
+						<br>
+						<br>
+					</div>
+				</form>
+			{% endif%}
+	</div>
+
+
+	
+	{% comment %} Inicio Script ID aportador formulario {% endcomment %}
+	<script src="{% static 'core/js/formulario.js' %}"></script>
+	<script>
+		$(document).ready(function(){
+			document.getElementById("id_idAportador").value = {{aportador.id}};
+			$('#id_idAportador').attr("disabled", true);
+
+			document.getElementById("id_idAportador").className = "col-lg-6 offset-3";
+			document.getElementById("id_montoAporte").className = "col-lg-6 offset-3";
+			document.getElementById("id_tarjetaAporte").className = "col-lg-6 offset-3";
+			document.getElementById("id_fechaAporte").className = "col-lg-6 offset-3";
+			document.getElementById("id_frecuenciaAporte").className = "col-lg-6 offset-3";
+
+			$( "#formulario" ).submit(function( event ) {
+				$("#id_idAportador").prop( "disabled", false );
+			});  
+
+			var text = document.createTextNode('{{aportador.first_name}} {{aportador.last_name}}');
+			var child = document.getElementById('id_idAportador');
+			child.parentNode.insertBefore(text, child);
+
+			document.getElementById("id_idAportador").style.visibility = "hidden";
+			//document.getElementById(id).style.visibility = "visible";
+
+			document.getElementById('id_fechaAporte').type = 'date';
+			document.getElementById('id_fechaAporte').value = '{{ aporte.fechaAporte }}';
+
+			$(document).ready(function(){
+				$("#id_fechaAporte").change(function(){
+					var hoy= new Date();
+					var fecha=$('#id_fechaAporte').val();
+					var fechaFormulario=Date.parse(fecha);			
+					if (hoy > fechaFormulario) {
+						document.getElementById('id_fechaAporte').value = '';
+					}
+				});
+			});		
+
+		})
+	</script>
+	{% comment %} Fin Script {% endcomment %}
+{% endblock content %}

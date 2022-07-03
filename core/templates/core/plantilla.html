@@ -1,0 +1,56 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block navibarDentro %}
+  <div class="bgded overlay padtop" style="background-image:url({% static 'core/img/ancianosinicio.png' %});"> 
+  <header id="header" class="hoc clear">
+    <div id="logo" class="fl_left"> 
+      <h1><a href="{% url 'plantilla' %}">Fundación Apoyo</a></h1>
+    </div>
+    <nav id="mainav" class="fl_right"> 
+      <ul class="clear">
+        <li><a href="{% url 'plantilla' %}">Inicio</a></li>
+        <li><a href="{% url 'registroAportador' %}">Registrarse</a></li>
+        <li><a href="{% url 'iniciarSesion' %}">Iniciar Sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="pageintro" class="hoc clear"> 
+    <article>
+      <h3 class="heading">Fundación Apoyo</h3>
+      <p>Fundación Apoyo contribuye al bienestar emocional y afectivo de las personas mayores con programas de acompañamiento, a través de dos caminos: el voluntariado y la formación. De esta manera, favorecemos la integración, la autoestima y la participación social.</p>
+      <footer>
+        <ul class="nospace inline pushright">
+          <li><a class="btn" href="{% url 'iniciarSesion' %}">¡Aporta!</a></li>
+        </ul>
+      </footer>
+    </article>
+  </div>
+</div>
+{% endblock navibarDentro %}
+{% block content %}
+<!-- Top Background Image Wrapper -->
+<div class="wrapper row3" style="background-color:#c2e9fb;">
+  <main class="hoc container clear"> 
+    <div class="clear"></div>
+  </main>
+</div>
+<div class="bgded overlay" style="background-image:url({% static 'core/img/abuelos2.png' %});">
+  <section class="hoc container clear"> 
+    <!-- ################################################################################################ -->
+    <figure class="one_half first">
+      <h6 class="heading">Fundación Apoyo</h6>
+      <ul class="nospace clear points">
+        <li><a href="#"><i class="fas fa-equals"></i></a>
+          <p>En Chile 13% de las personas mayores viven solas y 43,5% percibe algún grado de soledad aunque no vivan en hogares unipersonales. La soledad tiene consecuencias en la salud física y mental de quien la percibe. Con tu aporte nuestra Fundación podrá seguir acompañando a las personas mayores que lo necesiten #NuncaMásMayoresSolos </p>
+        </li>
+      </ul>
+    </figure>
+    <div class="one_half last"><a class="imgover" href="#"><img src="images/demo/480x300.png" alt=""></a></div>
+  </section>
+</div>
+<div class="wrapper row3" style="background-color:#c2e9fb;">
+  <main class="hoc container clear"> 
+    <div class="clear"></div>
+  </main>
+</div>
+{% endblock content %}

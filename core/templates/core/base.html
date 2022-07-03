@@ -1,0 +1,110 @@
+{% load static %}
+    {% block head %}
+        <head>
+            <title>Fundación Apoyo</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+            <link href="{% static 'core/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+            <link href="{% static 'core/css/layout.css' %}" rel="stylesheet" type="text/css">
+            <script src="{% static 'core/js/jquery.min.js' %}"></script>
+            <script src="{% static 'core/js/jquery.backtotop.js' %}"></script>
+            <script src="{% static 'core/js/jquery.mobilemenu.js' %}"></script>
+            <script src="layout/scripts/jquery.min.js"></script>
+            <script src="layout/scripts/jquery.backtotop.js"></script>
+            <script src="layout/scripts/jquery.mobilemenu.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" integrity="sha512-FOhq9HThdn7ltbK8abmGn60A/EMtEzIzv1rvuh+DqzJtSGq8BRdEN0U+j0iKEIffiw/yEtVuladk6rsG4X6Uqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/additional-methods.min.js" integrity="sha512-XJiEiB5jruAcBaVcXyaXtApKjtNie4aCBZ5nnFDIEFrhGIAvitoqQD6xd9ayp5mLODaCeaXfqQMeVs1ZfhKjRQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/localization/messages_es_PE.min.js" integrity="sha512-yZA0gipadbphIgYQDsIQIp3w/s1t9ZeBTDarFtE2tzpe4yEi3a1Xuc6SH1k8sxQrSshI/SO0439eHLqKA/KztQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="{% static 'core/js/registro.js' %}"></script>
+        </head>
+    {% endblock head %}
+
+    <body id="top">
+        {% block navbar %}
+        <div class="wrapper row0">
+            <div id="topbar" class="hoc clear"> 
+              <div class="fl_left">
+                <ul class="nospace">
+                  <li><i class="fas fa-mobile-alt rgtspace-5"></i> +56911223344</li>
+                  <li><i class="far fa-envelope rgtspace-5"></i> fundacion@gmail.com</li>
+                </ul>
+              </div>
+              <div class="fl_right">
+                <ul class="nospace">
+                  <li><a href="{% url 'plantilla' %}"><i class="fas fa-home"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="wrapper row1" style="background-color:#c2e9fb">
+            <section id="ctdetails" class="hoc clear"> 
+              <ul class="nospace clear">
+                <li class="one_quarter first">
+                  <div class="block clear"><a href="#"><i class="fas fa-phone"></i></a> <span><strong>Llámanos:</strong> +56911223344</span></div>
+                </li>
+                <li class="one_quarter">
+                  <div class="block clear"><a href="#"><i class="fas fa-envelope"></i></a> <span><strong>Email:</strong> support@domain.com</span></div>
+                </li>
+                <li class="one_quarter">
+                  <div class="block clear"><a href="#"><i class="fas fa-clock"></i></a> <span><strong> Lun. - Dom.:</strong> 08.00am - 18.00pm</span></div>
+                </li>
+                <li class="one_quarter">
+                  <div class="block clear"><a href="#"><i class="fas fa-map-marker-alt"></i></a> <span><strong>Dirección:</strong> Padre Alonso de Ovalle 1586</span></div>
+                </li>
+              </ul>
+            </section>
+          </div>
+          {% block navibarDentro %}
+            <div class="bgded overlay padtop" style="background-image:url({% static 'core/img/ancianosinicio.png' %});"> 
+              <header id="header" class="hoc clear">
+                <div id="logo" class="fl_left"> 
+                  <h1><a href="{% url 'plantilla' %}">Fundación Apoyo</a></h1>
+                </div>
+                <nav id="mainav" class="fl_right"> 
+                  <ul class="clear">
+                    <li><a href="{% url 'plantilla' %}">Inicio</a></li>
+                    <li><a href="{% url 'registroAportador' %}">Registrarse</a></li>
+                    <li><a href="{% url 'iniciarSesion' %}">Iniciar Sesión</a></li>
+                  </ul>
+                </nav>
+              </header>
+            </div> 
+          {% endblock navibarDentro %}
+        {% endblock navbar %}
+{% block content%}
+{% endblock content%}
+{% block finPagina %}
+        <div class="bgded overlay" style="background-image:url('images/demo/backgrounds/01.png');"> 
+          <div class="wrapper row4">
+            <footer id="footer" class="hoc clear"> 
+              <div class="group btmspace-50">
+                <div class="one_quarter first">
+                  <h6 class="heading">Nuestras Redes Sociales.</h6>
+                  <p>Podrás encontrar fotos sobre el lugar, testimonios de las familias de los refugiados y además con las personas que trabajamos. [<a href="#">&hellip;</a>]</p>
+                  <ul class="faico clear">
+                    <li><a class="faicon-facebook" href="#"><i class="fab fa-facebook"></i></a></li>
+                    <li><a class="faicon-twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                  </ul>
+                </div>
+                <div class="one_quarter">
+                  <h6 class="heading">Fundación Apoyo</h6>
+                  <ul class="nospace linklist">
+                    <li><a href="{% url 'registroAportador' %}">Registrate para hacer un aporte</a></li>
+                    <li><a href="{% url 'iniciarSesion' %}">Inicia Sesión podras:</a></li>
+                    <ul>
+                      <ul>
+                        <li><a>Realizar Aportes</a></li>
+                        <li><a>Ver tu historial de aportes</a></li>
+                        <li><a>Ver tus próximos aportes</a></li>
+                      </ul>
+                    </ul>
+                  </ul>
+                </div>
+              </div>
+            </footer>
+          </div>
+          {% endblock finPagina %}
+
+    </body>
+</html>

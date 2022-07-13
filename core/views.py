@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 from .models import Aportador, Aporte, PerfilUsuario
 from .forms import AporteForm, FechasForm, RegistroForm, AgregarAportadorForm, IniciarSesionForm
 from datetime import datetime, timedelta, time
+from rest_framework import viewsets
+from apirest.serializers import AporteSerializers
+
 
 # Create your views here.
 
@@ -14,6 +17,10 @@ from datetime import datetime, timedelta, time
 #----------------------Funciones sin ID-----------------------------
 #-------------------------------------------------------------------
 #-------------------------------------------------------------------
+
+class AporteViewset(viewsets.ModelViewSet):
+    queryset = Aporte.objects.all()
+    serializer_class = AporteSerializers
 
 def plantilla(request):
     return render(request,"core/plantilla.html")
